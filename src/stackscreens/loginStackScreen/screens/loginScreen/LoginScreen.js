@@ -3,34 +3,32 @@ import {
     Text,
     ImageBackground,
     ScrollView,
+    Image,
 } from "react-native";
 import { InputData, NavigationTop } from "../../component";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../../../assets/image";
-// import { Card } from "../../../favoriteStackScreen/component";
 
-const SettingScreen = () => {
+
+const LoginScreen = () => {
     return (
         <SafeAreaView>
-            <View style={{ height: 80 }}>
+            <View style={{ height: 320 }}>
                 <ImageBackground
                     source={images.homeScreen}
                     resizeMode="cover"
                     style={{
                         flex: 1,
-                        height: 300,
+                        height: 500,
                         paddingTop: 15,
                         paddingHorizontal: 15,
                     }}
                 >
-                    <NavigationTop
-                        nameIcon="home"
-                        title="Home"
-                        colorTitle="#F1F5FE"
-                    />
                     <View
-                        style={{ alignItems: "center", paddingTop: 12 }}
-                    ></View>
+                        style={{ alignItems: "center", paddingTop: 1, }}
+                    >
+                        <Image style={{width:350, height:350}} source={require('../../../../assets/image/afsplash.png')}/>
+                    </View>
                 </ImageBackground>
             </View>
             <View
@@ -52,23 +50,20 @@ const SettingScreen = () => {
                 >
                     <Text
                         style={{
-                            paddingBottom: 10,
+                            paddingBottom: 15,
                             fontWeight: "bold",
                             fontSize: 18,
                         }}
                     >
-                        Settings
+                        Login
                     </Text>
                     <View style={{ width: "100%", padding: 5 }}>
                         <InputData/>
                     </View>
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                    ></ScrollView>
                 </View>
             </View>
         </SafeAreaView>
     );
 };
 
-export default SettingScreen;
+export default LoginScreen;
