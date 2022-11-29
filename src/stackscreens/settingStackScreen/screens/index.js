@@ -1,3 +1,3 @@
-import ProfileScreen from './profileScreen/ProfileScreen';
+import SettingScreen from './settingScreen/SettingScreen';
 
-export { ProfileScreen };
+export { SettingScreen };
