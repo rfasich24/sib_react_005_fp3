@@ -1,40 +1,92 @@
 import axios from 'axios';
 
-const getLatLong = async (search) => {
+export const getLocation = async (search) => {
   const options = {
     method: 'GET',
-    url: 'https://hotels4.p.rapidapi.com/v2/get-meta-data',
-    params: { query: search ? search : 'Bali' },
+    url: 'https://travel-advisor.p.rapidapi.com/locations/v2/auto-complete',
+    params: { query: search ? search : 'Jember' },
     headers: {
-      'X-RapidAPI-Key': '017e71df30msha4568ac97fdb748p1f32abjsn5feb6dec1aef',
-    'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+      'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
     },
   };
 
   const res = axios
     .request(options)
     .then(function (response) {
-      return response.data;
+      let respLocation = response.data?.data?.Typeahead_autocomplete?.results[0];
+
+      return {
+        documentId: respLocation.documentId,
+        locationId: respLocation.detailsV2?.locationId,
+        placeType: respLocation.detailsV2?.placeType,
+        names: {
+          name: respLocation.detailsV2?.names?.name,
+          longOnlyHierarchyTypeaheadV2: respLocation.detailsV2?.names?.longOnlyHierarchyTypeaheadV2,
+        },
+        geocode: {
+          latitude: respLocation.detailsV2?.geocode?.latitude,
+          longitude: respLocation.detailsV2?.geocode?.longitude,
+        },
+      };
     })
     .catch(function (error) {
       console.error(error);
     });
-  return await res;
+  return res;
 };
 
-const getHotel = async ({ latitude, longitude }) => {
+export const getHotel = async ({ locationId }) => {
   try {
-    const res = await axios.get('https://hotels4.p.rapidapi.com/v2/get-meta-data', {
-      params: { latitude: latitude ? latitude : '-8.36977497199996', longitude: longitude ? longitude : '115.13165412300009', limit: '14' },
+    const options = {
+      method: 'GET',
+      url: 'https://travel-advisor.p.rapidapi.com/hotels/get-details',
+      params: { location_id: locationId },
       headers: {
-        'X-RapidAPI-Key': '017e71df30msha4568ac97fdb748p1f32abjsn5feb6dec1aef',
-    'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
+        'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+        'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
       },
-    });
-    return res.data.data;
+    };
+
+    const res = axios
+      .request(options)
+      .then(function (response) {
+        const resp = response.data?.data;
+        let newRes = [];
+        for (let item of resp) {
+          let newPrice = item.price ? item.price.split(' ')[0].substr(1) : 0;
+          console.log('🚀 ~ file: getApi.js:58 ~ newPrice', newPrice);
+          newRes.push({
+            location_id: item.location_id,
+            name: item.name,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            num_reviews: item.num_reviews,
+            location_string: item.location_string,
+            images: {
+              original: {
+                url: item.photo?.images?.original?.url,
+              },
+              large: {
+                url: item.photo?.images?.large?.url,
+              },
+            },
+            ranking: item.ranking,
+            rating: item.rating,
+            price: newPrice,
+            hotel_class: item.hotel_class,
+            description: item.description,
+            address: item.address,
+          });
+        }
+        return newRes;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+    return res;
   } catch (err) {
     console.log(err);
   }
 };
-
-export { getLatLong, getHotel };
