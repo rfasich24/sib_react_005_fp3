@@ -1,15 +1,19 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { wishlistAdded } from '../../redux/reducer/profileSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { unWishlist, wishlistAdded } from '../../redux/reducer/profileSlice';
 
 export default function Card({ item }) {
   const width = Dimensions.get('screen').width / 2 - 30;
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const profile = useSelector((store) => store.profile);
+  const isSaved = profile.wishlist.length > 0 ? profile.wishlist.find((wish) => wish.name === item.name) : false;
+
+  useEffect(() => {}, [profile]);
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('DetailCard', { data: item })}>
@@ -21,9 +25,15 @@ export default function Card({ item }) {
             {item.hotel_class}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => dispatch(wishlistAdded(item))} style={{ position: 'absolute', right: 10, top: 5, backgroundColor: 'rgba(255,255,255,0.2)', padding: 4, borderRadius: 50, elevation: 2 }}>
-          <Icon name="heart-outline" color="#fff" size={16} />
-        </TouchableOpacity>
+        {isSaved ? (
+          <TouchableOpacity onPress={() => dispatch(unWishlist(item))} style={{ position: 'absolute', right: 10, top: 5, backgroundColor: 'rgba(255,255,255,0.2)', padding: 4, borderRadius: 50, elevation: 2 }}>
+            <Icon name="heart" color="#FF5A5A" size={16} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => dispatch(wishlistAdded(item))} style={{ position: 'absolute', right: 10, top: 5, backgroundColor: 'rgba(255,255,255,0.2)', padding: 4, borderRadius: 50, elevation: 2 }}>
+            <Icon name="heart-outline" color="#fff" size={16} />
+          </TouchableOpacity>
+        )}
         <View style={{ padding: 8, justifyContent: 'space-between', flex: 1 }}>
           <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center' }}>
             <Text style={{ fontWeight: '600', flex: 1, lineHeight: 24 }}>{item.name}</Text>

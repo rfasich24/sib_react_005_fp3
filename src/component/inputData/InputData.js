@@ -29,7 +29,7 @@ const InputData = () => {
 
   const redirect = (status) => {
     if (status) {
-      navigation.navigate('SettingScreen');
+      navigation.goBack();
     }
   };
 

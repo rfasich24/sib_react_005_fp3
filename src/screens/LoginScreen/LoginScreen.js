@@ -4,15 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import images from '../../assets/image';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const profile = useSelector((store) => store.profile);
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (profile.login.length > 0) {
-      return navigation.dispatch(StackActions.replace('SettingScreen'));
+    if (profile.login?.email) {
+      return navigation.goBack();
     }
   });
   return (

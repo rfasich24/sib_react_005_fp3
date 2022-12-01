@@ -46,7 +46,7 @@ const MenuScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} style={{ padding: 15 }}>
         <View style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, marginVertical: 10 }}>
           <View style={{ marginBottom: 6 }}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1 }}>PROFILE</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1 }}>MY ACCOUNT</Text>
           </View>
           <View style={{ paddingBottom: 5 }}>
             <Text style={{ padding: 4, fontWeight: '500' }}>Username</Text>

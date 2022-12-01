@@ -6,7 +6,8 @@ export const getLocation = async (search) => {
     url: 'https://travel-advisor.p.rapidapi.com/locations/v2/auto-complete',
     params: { query: search ? search : 'Jember' },
     headers: {
-      'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+      // 'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+      'X-RapidAPI-Key': '39f0bc8e4cmsh80cb3487795f7f9p14f312jsn129c787bcb91',
       'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
     },
   };
@@ -43,7 +44,8 @@ export const getHotel = async ({ locationId }) => {
       url: 'https://travel-advisor.p.rapidapi.com/hotels/get-details',
       params: { location_id: locationId },
       headers: {
-        'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+        // 'X-RapidAPI-Key': 'b694d6501emsha21637e0851d4dap16d545jsnaf887e1b7d6c',
+        'X-RapidAPI-Key': '39f0bc8e4cmsh80cb3487795f7f9p14f312jsn129c787bcb91',
         'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
       },
     };
@@ -55,7 +57,6 @@ export const getHotel = async ({ locationId }) => {
         let newRes = [];
         for (let item of resp) {
           let newPrice = item.price ? item.price.split(' ')[0].substr(1) : 0;
-          console.log('🚀 ~ file: getApi.js:58 ~ newPrice', newPrice);
           newRes.push({
             location_id: item.location_id,
             name: item.name,

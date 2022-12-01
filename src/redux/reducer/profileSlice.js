@@ -22,17 +22,23 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: initialState,
   reducers: {
+    unWishlist: (state, action) => {
+      const exist = state.wishlist.find((item) => item.name === action.payload.name);
+      if (exist) {
+        state.wishlist = state.wishlist.filter((item) => item.name !== action.payload.name);
+      }
+    },
     wishlistAdded: (state, action) => {
-      const exist = state.wishlist.find((item) => item.name === action.payload.item.name);
+      const exist = state.wishlist.find((item) => item.name === action.payload.name);
       if (!exist) {
-        state.wishlist.push(...action.payload);
+        state.wishlist.push(action.payload);
       }
     },
     changeProfile: (state, action) => {
       state.login = action.payload;
     },
     bookingAdded: (state, action) => {
-      state.historyBook.push(...action.payload);
+      state.historyBook.push(action.payload);
     },
     logout: (state, action) => {
       state.login = [];
@@ -45,5 +51,5 @@ const profileSlice = createSlice({
   },
 });
 
-export const { logout, bookingAdded, changeProfile, wishlistAdded } = profileSlice.actions;
+export const { logout, bookingAdded, changeProfile, wishlistAdded, unWishlist } = profileSlice.actions;
 export default profileSlice.reducer;

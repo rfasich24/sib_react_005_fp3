@@ -4,8 +4,8 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, Dimensions, Button
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { styles } from '../../assets/style/style';
 import { NavigationTop } from '../../component';
+import { bookingAdded } from '../../redux/reducer/profileSlice';
 
 export default function BookingScreen({ route }) {
   const profile = useSelector((store) => store.profile);

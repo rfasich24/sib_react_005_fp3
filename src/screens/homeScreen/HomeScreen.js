@@ -5,6 +5,7 @@ import { Card, NavigationTop } from '../../component';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getHotel, getLocation } from '../../api/getApi';
 import images from '../../assets/image';
+import { detailHotel } from '../../constant/data';
 
 export default function HomeScreen() {
   const [dataHotel, setDataHotel] = useState();
@@ -19,9 +20,7 @@ export default function HomeScreen() {
       getLocation(search).then((res) => {
         getHotel({ locationId: res.locationId }).then((resHotel) => {
           setDataHotel(resHotel);
-          setTimeout(() => {
-            setIsloding(false);
-          }, 2000);
+          setIsloding(false);
         });
       });
     }
@@ -59,7 +58,7 @@ export default function HomeScreen() {
       <View style={{ paddingHorizontal: 15, paddingVertical: 25, backgroundColor: '#fff', borderTopLeftRadius: 40, borderTopRightRadius: 40, overflow: 'hidden' }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ minHeight: 500, paddingBottom: 360 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 28, letterSpacing: 2 }}>Hotel</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 28, letterSpacing: 2 }}>Hotel {isLoading}</Text>
             {isLoading && (
               <View style={{ minHeight: height, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Image source={require('../../assets/image/logo.png')} style={{ width: 100, height: 100 }} />
@@ -67,7 +66,18 @@ export default function HomeScreen() {
               </View>
             )}
             {!isLoading && (
-              <View style={{ marginVertical: 15, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>{dataHotel && dataHotel?.map((data, index) => (data.name ? <Card item={data} key={index} /> : null))}</View>
+              <View style={{ marginBottom: 6, minHeight: 200 }}>
+                <View style={{ marginVertical: 15, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  {dataHotel.length > 0 ? (
+                    dataHotel?.map((item, index) => <Card item={item} key={index} />)
+                  ) : (
+                    <View style={{ minHeight: height - 100, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                      <Icon name="home-outline" size={30} />
+                      <Text style={{ lineHeight: 30, fontWeight: '500' }}>No Hotel Found</Text>
+                    </View>
+                  )}
+                </View>
+              </View>
             )}
           </View>
         </ScrollView>

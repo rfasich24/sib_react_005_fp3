@@ -50,7 +50,7 @@ export default function DetailCard({ route }) {
               <View>
                 <TouchableOpacity
                   onPress={() => {
-                    profile.login.length > 0 ? navigation.navigate('BookingScreen', { data: route.params.data }) : navigation.navigate('LoginScreen');
+                    profile.login?.email ? navigation.navigate('BookingScreen', { data: route.params.data }) : navigation.navigate('LoginScreen');
                   }}
                   style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FF5A5A', padding: 12, borderRadius: 20 }}
                 >

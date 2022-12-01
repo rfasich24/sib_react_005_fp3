@@ -1,9 +1,13 @@
-import { View, Text, ImageBackground, ScrollView } from 'react-native';
-import { Card, NavigationTop } from '../../stackscreens/favoriteStackScreen/component';
+import { View, Text, ImageBackground, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 import images from '../../assets/image';
+import { Card, NavigationTop } from '../../component';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const FavoriteScreen = () => {
+const WishlistScreen = () => {
+  const profile = useSelector((store) => store.profile);
+  const { height } = Dimensions.get('screen');
   return (
     <SafeAreaView>
       <View style={{ height: 130 }}>
@@ -36,6 +40,7 @@ const FavoriteScreen = () => {
       </View>
       <View
         style={{
+          minHeight: height,
           paddingHorizontal: 15,
           paddingVertical: 25,
           backgroundColor: '#fff',
@@ -45,8 +50,17 @@ const FavoriteScreen = () => {
         }}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ minHeight: 500, paddingBottom: 360 }}>
-            <Card />
+          <View style={{ marginBottom: 6, minHeight: 200 }}>
+            <View style={{ marginVertical: 15, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
+              {profile.wishlist.length > 0 ? (
+                profile.wishlist?.map((item, index) => <Card item={item} key={index} />)
+              ) : (
+                <View style={{ minHeight: height / 2, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                  <Icon name="heart-dislike-outline" size={30} />
+                  <Text style={{ lineHeight: 30, fontWeight: '500' }}>No Wishlist</Text>
+                </View>
+              )}
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -54,4 +68,4 @@ const FavoriteScreen = () => {
   );
 };
 
-export default FavoriteScreen;
+export default WishlistScreen;
