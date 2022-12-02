@@ -1,5 +1,5 @@
 <h1 align="center">RCTN-KS05</h1>
-<h1 align="center">Final Project 3 - Reservatoin Hotel</h1>
+<h1 align="center">Final Project 3 - Reservation Hotel</h1>
 <table style="height: 18px; width: 40.6406%; border-collapse: collapse; border-style: solid; border-color: #000000; background-color: #00ff00;" border="1">
 <tbody>
 <tr style="height: 18px;">
