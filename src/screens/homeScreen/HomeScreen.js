@@ -68,7 +68,7 @@ export default function HomeScreen() {
             {!isLoading && (
               <View style={{ marginBottom: 6, minHeight: 200 }}>
                 <View style={{ marginVertical: 15, flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
-                  {dataHotel.length > 0 ? (
+                  {dataHotel?.name ? (
                     dataHotel?.map((item, index) => <Card item={item} key={index} />)
                   ) : (
                     <View style={{ minHeight: height - 100, justifyContent: 'center', alignItems: 'center', flex: 1 }}>

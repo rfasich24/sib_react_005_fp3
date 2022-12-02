@@ -21,7 +21,7 @@ export default function DetailCard({ route }) {
       >
         <Icon name="chevron-back" size={24} color="rgba(0,0,0,0.6)" />
       </TouchableOpacity>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, flexWrap: 'wrap' }}>
           <Image source={{ uri: item.images.original.url }} style={{ width: width, height: width, resizeMode: 'cover' }} />
         </View>

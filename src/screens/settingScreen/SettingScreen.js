@@ -44,7 +44,7 @@ const MenuScreen = () => {
         <NavigationTop nameIcon="arrow-back" title="Setting" />
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={{ padding: 15 }}>
-        <View style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, marginVertical: 10 }}>
+        <View style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, marginVertical: 10, elevation: 1 }}>
           <View style={{ marginBottom: 6 }}>
             <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1 }}>MY ACCOUNT</Text>
           </View>
@@ -120,11 +120,16 @@ const MenuScreen = () => {
             </TouchableOpacity>
           )}
         </View>
-        <View style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, marginVertical: 10 }}>
+        <View style={{ backgroundColor: '#fff', padding: 12, borderRadius: 8, marginVertical: 10, elevation: 1 }}>
           <View style={{ marginBottom: 6 }}>
             <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1 }}>SUPPORT</Text>
           </View>
-          <View>
+          <View style={{ marginBottom: 5, paddingBottom: 5, borderBottomWidth: 0.5, borderColor: '#3EBDC6' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('InformationScreen')}>
+              <Text style={{ lineHeight: 24, fontSize: 16 }}>Information</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginBottom: 5, paddingBottom: 5 }}>
             {!profile.login?.email && (
               <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
                 <Text style={{ lineHeight: 24, fontSize: 16 }}>Login</Text>
